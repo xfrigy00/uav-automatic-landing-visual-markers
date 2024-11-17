@@ -56,8 +56,16 @@ private:
             cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
         }
 
-        // Display the processed image with detected markers
-        cv::imshow("Aruco Markers", cv_ptr->image);
+	// Resize the image to match the window size (800x600 in this example)
+	cv::Mat resized_image;
+	cv::resize(cv_ptr->image, resized_image, cv::Size(800, 600));  // Resize to 800x600 pixels
+
+	// Display the processed (resized) image with detected markers
+	cv::imshow("Aruco Markers", resized_image);
+	    
+	// Resize the window to 800x600 pixels
+	cv::resizeWindow("Aruco Markers", 800, 600);
+
         cv::waitKey(1);  // Wait briefly for a key press to update the image display
     }
 
