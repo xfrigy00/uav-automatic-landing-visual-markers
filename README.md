@@ -1,5 +1,5 @@
 # uav-automatic-landing-visual-markers
-Package for
+Package for automatic landing
 
 Nodes: image subscriber, aruco_detector
 
