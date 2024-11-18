@@ -9,7 +9,7 @@ class ArucoDetector : public rclcpp::Node
 {
 public:
     // Constructor for the node
-    ArucoDetector() : Node("aruco_detector_node")
+    ArucoDetector() : Node("aruco_detector")
     {
         // Subscribe to the ROS image topic "/image", with a queue size of 10
         // When a new image message is received, it triggers the `image_callback` function

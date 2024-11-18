@@ -17,11 +17,11 @@ add_executable(image_subscriber src/image_subscriber.cpp)
 ament_target_dependencies(image_subscriber rclcpp sensor_msgs)
 
 # Aruco detector node
-add_executable(aruco_detector_node src/aruco_detector_node.cpp)
-ament_target_dependencies(aruco_detector_node rclcpp sensor_msgs cv_bridge OpenCV)
+add_executable(aruco_detector src/aruco_detector.cpp)
+ament_target_dependencies(aruco_detector rclcpp sensor_msgs cv_bridge OpenCV)
 
 # Explicitly link OpenCV libraries (if needed, usually ROS2 handles this)
-target_link_libraries(aruco_detector_node ${OpenCV_LIBS})
+target_link_libraries(aruco_detector ${OpenCV_LIBS})
 
 # If building tests, set up linting and testing dependencies
 if(BUILD_TESTING)
@@ -39,7 +39,7 @@ endif()
 # Install both nodes
 install(TARGETS
   image_subscriber
-  aruco_detector_node
+  aruco_detector
   DESTINATION lib/${PROJECT_NAME})
 
 # Install launch files (if any)

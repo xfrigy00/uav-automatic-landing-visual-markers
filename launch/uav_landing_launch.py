@@ -14,7 +14,7 @@ def generate_launch_description():
                 'tmux send-keys -t my_session2: "ros2 run uav_landing image_subscriber" C-m; '
                 'tmux split-window -h; '  # Split the window horizontally
                 'tmux split-window -v; '  # Split one of the panes vertically
-                'tmux send-keys -t my_session2: "ros2 run uav_landing aruco_detector_node" C-m; '  # Start the `uav_landing aruco_detector_node` in pane 3
+                'tmux send-keys -t my_session2: "ros2 run uav_landing aruco_detector" C-m; '  # Start the `uav_landing aruco_detector` in pane 3
                 'tmux select-pane -t 0; '  # Select pane 0 (image_subscriber)
                 'tmux split-window -v; '  # Split the remaining pane vertically
                 'tmux send-keys -t my_session2: "ros2 run image_tools cam2image" C-m; '  # Start the `image_tools cam2image` node in pane 1
