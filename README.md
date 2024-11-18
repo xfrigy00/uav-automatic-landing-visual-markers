@@ -1,5 +1,5 @@
 # uav-automatic-landing-visual-markers
-Package for automatic landing
+**Package for automatic landing**
 
 Nodes: image subscriber, aruco_detector  
 Run with: ros2 launch uav_landing uav_landing_launch.py  
