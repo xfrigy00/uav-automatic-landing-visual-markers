@@ -34,14 +34,14 @@ private:
             RCLCPP_ERROR(this->get_logger(), "CV Bridge error: %s", e.what());
             return;
         }
-
+;
         // Load the predefined ArUco dictionary for marker detection (4x4 grid with 1000 markers)
         cv::Ptr<cv::aruco::Dictionary> aruco_dict = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_1000);
         
         // Vectors to store detected marker information
         std::vector<std::vector<cv::Point2f>> corners;  // Marker corners
         std::vector<int> ids;  // Marker IDs
-        std::vector<std::vector<cv::Point2f>> rejected_img_points;  // Points rejected by the detector
+        std::vector<std::vector<cv::Point2f>> rejected_img_points;	// Points rejected by the detector
 
         // Create parameters for the marker detection algorithm
         cv::Ptr<cv::aruco::DetectorParameters> detectorParams = cv::aruco::DetectorParameters::create();
@@ -53,7 +53,7 @@ private:
         if (!ids.empty())
         {
             // Log the IDs of the detected markers to the console
-            std::ostringstream ids_stream;
+            std::ostringstream ids_stream; // Create a string stream to accumulate the marker IDs
             for (const auto &id : ids)
             {
                 ids_stream << id << " ";
@@ -71,7 +71,7 @@ private:
 
         // Resize the image to match the window size (800x600 in this example)
         cv::Mat resized_image;
-        cv::resize(cv_ptr->image, resized_image, cv::Size(800, 600));  // Resize to 800x600 pixels
+        cv::resize(cv_ptr->image, resized_image, cv::Size(800, 600));	// Resize to 800x600 pixels
 
         // Display the processed (resized) image with detected markers
         cv::imshow("Aruco Markers", resized_image);
