@@ -12,9 +12,9 @@ public:
     ArucoDetector() : Node("aruco_detector")
     {
         // Subscribe to the ROS image topic "/image", with a queue size of 10
-        // When a new image message is received, it triggers the `image_callback` function
         image_subscriber_ = this->create_subscription<sensor_msgs::msg::Image>(
-            "/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1));
+            //"/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1));
+            "/x500_1/sensors/camera/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1));
     }
 
 private:
@@ -49,22 +49,35 @@ private:
         // Perform marker detection on the OpenCV image
         cv::aruco::detectMarkers(cv_ptr->image, aruco_dict, corners, ids, detectorParams, rejected_img_points);
 
-        // If any markers are detected, draw them on the image
+        // Check if any markers are detected
         if (!ids.empty())
         {
+            // Log the IDs of the detected markers to the console
+            std::ostringstream ids_stream;
+            for (const auto &id : ids)
+            {
+                ids_stream << id << " ";
+            }
+            RCLCPP_INFO(this->get_logger(), "Detected ArUco marker IDs: %s", ids_stream.str().c_str());
+
             // Draw the detected markers with their IDs
             cv::aruco::drawDetectedMarkers(cv_ptr->image, corners, ids);
         }
+        else
+        {
+            // Log a message if no markers are found
+            RCLCPP_INFO(this->get_logger(), "No ArUco marker found");
+        }
 
-	// Resize the image to match the window size (800x600 in this example)
-	cv::Mat resized_image;
-	cv::resize(cv_ptr->image, resized_image, cv::Size(800, 600));  // Resize to 800x600 pixels
+        // Resize the image to match the window size (800x600 in this example)
+        cv::Mat resized_image;
+        cv::resize(cv_ptr->image, resized_image, cv::Size(800, 600));  // Resize to 800x600 pixels
 
-	// Display the processed (resized) image with detected markers
-	cv::imshow("Aruco Markers", resized_image);
-	    
-	// Resize the window to 800x600 pixels
-	cv::resizeWindow("Aruco Markers", 800, 600);
+        // Display the processed (resized) image with detected markers
+        cv::imshow("Aruco Markers", resized_image);
+        
+        // Resize the window to 800x600 pixels
+        cv::resizeWindow("Aruco Markers", 800, 600);
 
         cv::waitKey(1);  // Wait briefly for a key press to update the image display
     }
