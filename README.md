@@ -1,4 +1,4 @@
-# uav-landing
+# uav_landing
 **Package for automatic landing**
 
 #### Nodes
