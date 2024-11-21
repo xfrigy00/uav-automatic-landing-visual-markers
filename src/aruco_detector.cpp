@@ -13,8 +13,8 @@ public:
     {
         // Subscribe to the ROS image topic "/image", with a queue size of 10
         image_subscriber_ = this->create_subscription<sensor_msgs::msg::Image>(
-            "/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1)); // Laptop camera
-            //"/x500_1/sensors/camera/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1)); // Drone camera
+            //"/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1)); // Laptop camera
+            "/x500_1/sensors/camera/image", 10, std::bind(&ArucoDetector::image_callback, this, std::placeholders::_1)); // Drone camera
     }
 
 private:
